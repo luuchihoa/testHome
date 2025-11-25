@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trang 1</title>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Barba.js -->
+  <script src="https://unpkg.com/@barba/core"></script>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      padding: 40px;
+    }
+    .page {
+      opacity: 1;
+    }
+    a {
+      font-size: 20px;
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="barba-wrapper">
+    <div class="barba-container page" data-barba="container" data-barba-namespace="home">
+      <h1>Đây là trang 1</h1>
+      <p>Chuyển sang trang 2 để xem hiệu ứng chuyển trang Barba.js</p>
+      <a href="./demo_barba/page2.html">👉 Sang trang 2</a>
+    </div>
+  </div>
+
+  <script>
+    barba.init({
+      transitions: [{
+        name: "fade",
+        async leave(data) {
+          await gsap.to(data.current.container, {
+            opacity: 0,
+            duration: 0.5
+          });
+        },
+        enter(data) {
+          gsap.from(data.next.container, {
+            opacity: 0,
+            duration: 0.5
+          });
+        }
+      }]
+    });
+  </script>
+
+</body>
+</html>
